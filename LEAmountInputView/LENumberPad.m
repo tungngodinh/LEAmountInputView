@@ -102,11 +102,11 @@
     [cell.button setBackgroundImage:backgroundImage forState:UIControlStateHighlighted];
     [cell.button setBackgroundImage:backgroundImage forState:UIControlStateSelected];
     
-    [cell.button addTarget:self action:@selector(didTouchOnButton:) forControlEvents:UIControlEventTouchUpInside];
-    
     SEL action = [self touchDownActionForButtonAtIndexPath:indexPath];
     if (action) {
         [cell.button addTarget:self.dataSource action:action forControlEvents:UIControlEventTouchDown];
+    } else {
+        [cell.button addTarget:self action:@selector(didTouchOnButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return cell;
