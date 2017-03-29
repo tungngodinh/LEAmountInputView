@@ -104,6 +104,11 @@
     
     [cell.button addTarget:self action:@selector(didTouchOnButton:) forControlEvents:UIControlEventTouchUpInside];
     
+    SEL action = [self touchDownActionForButtonAtIndexPath:indexPath];
+    if (action) {
+        [cell.button addTarget:self.dataSource action:action forControlEvents:UIControlEventTouchDown];
+    }
+    
     return cell;
 }
 
@@ -182,6 +187,11 @@
 - (UIColor *)buttonBackgroundHighlightedColorForButtonAtIndexPath:(NSIndexPath *)indexPath;
 {
     return [self.dataSource numberPad:self buttonBackgroundHighlightedColorForButtonAtIndexPath:indexPath];
+}
+
+- (SEL)touchDownActionForButtonAtIndexPath:(NSIndexPath *)indextPath;
+{
+    return [self.dataSource numberPad:self touchDownActionForButtonAtIndexPath:indextPath];
 }
 
 @end

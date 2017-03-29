@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class LENumberPad;
 
 @protocol LENumberPadDataSource <NSObject>
@@ -19,6 +21,10 @@
 - (UIFont *)numberPad:(LENumberPad *)numberPad buttonTitleFontForButtonAtIndexPath:(NSIndexPath *)indexPath;
 - (UIColor *)numberPad:(LENumberPad *)numberPad buttonBackgroundColorForButtonAtIndexPath:(NSIndexPath *)indexPath;
 - (UIColor *)numberPad:(LENumberPad *)numberPad buttonBackgroundHighlightedColorForButtonAtIndexPath:(NSIndexPath *)indexPath;
+
+@optional
+
+- (nullable SEL)numberPad:(LENumberPad *)numberPad touchDownActionForButtonAtIndexPath:(NSIndexPath *)indextPath;
 
 @end
 
@@ -45,4 +51,8 @@
 - (NSInteger)numberOfColumns;
 - (NSInteger)numberOfRows;
 
+NS_ASSUME_NONNULL_END
+
 @end
+
+
