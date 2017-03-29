@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DD4BBE05D75741089A34EB9 /* libPods-LEAmountInputViewDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A22EF017903995394C26768 /* libPods-LEAmountInputViewDemo.a */; };
+		53C701B71E8BD240003AB9D6 /* KVAmountInputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C701B61E8BD240003AB9D6 /* KVAmountInputTextField.m */; };
 		8B2E92901AF6EB9A00F94CB6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E928F1AF6EB9A00F94CB6 /* main.m */; };
 		8B2E92931AF6EB9A00F94CB6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E92921AF6EB9A00F94CB6 /* AppDelegate.m */; };
 		8B2E92961AF6EB9A00F94CB6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E92951AF6EB9A00F94CB6 /* ViewController.m */; };
@@ -22,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		53C701B51E8BD240003AB9D6 /* KVAmountInputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVAmountInputTextField.h; sourceTree = "<group>"; };
+		53C701B61E8BD240003AB9D6 /* KVAmountInputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVAmountInputTextField.m; sourceTree = "<group>"; };
+		5A22EF017903995394C26768 /* libPods-LEAmountInputViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LEAmountInputViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B2E928A1AF6EB9A00F94CB6 /* LEAmountInputViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LEAmountInputViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B2E928E1AF6EB9A00F94CB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B2E928F1AF6EB9A00F94CB6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -44,6 +49,8 @@
 		8BAF04041B288D7000159874 /* LEAmountInputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEAmountInputTextField.m; sourceTree = "<group>"; };
 		8BAF04091B28906200159874 /* NSNumberFormatter+LEAmountInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumberFormatter+LEAmountInputView.h"; sourceTree = "<group>"; };
 		8BAF040A1B28906200159874 /* NSNumberFormatter+LEAmountInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumberFormatter+LEAmountInputView.m"; sourceTree = "<group>"; };
+		D821533D0C09988ED36DF2F2 /* Pods-LEAmountInputViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LEAmountInputViewDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LEAmountInputViewDemo/Pods-LEAmountInputViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		FA961FFE6B381FD3D4B63158 /* Pods-LEAmountInputViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LEAmountInputViewDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LEAmountInputViewDemo/Pods-LEAmountInputViewDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,18 +58,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DD4BBE05D75741089A34EB9 /* libPods-LEAmountInputViewDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0223615C9D4CFD7DA9B4CB23 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D821533D0C09988ED36DF2F2 /* Pods-LEAmountInputViewDemo.debug.xcconfig */,
+				FA961FFE6B381FD3D4B63158 /* Pods-LEAmountInputViewDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5DD822F7C02276D8B9FFA93A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5A22EF017903995394C26768 /* libPods-LEAmountInputViewDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8B2E92811AF6EB9A00F94CB6 = {
 			isa = PBXGroup;
 			children = (
 				8B2E92B31AF6EC1300F94CB6 /* LEAmountInputView */,
 				8B2E928C1AF6EB9A00F94CB6 /* LEAmountInputViewDemo */,
 				8B2E928B1AF6EB9A00F94CB6 /* Products */,
+				0223615C9D4CFD7DA9B4CB23 /* Pods */,
+				5DD822F7C02276D8B9FFA93A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +128,8 @@
 		8B2E92B31AF6EC1300F94CB6 /* LEAmountInputView */ = {
 			isa = PBXGroup;
 			children = (
+				53C701B51E8BD240003AB9D6 /* KVAmountInputTextField.h */,
+				53C701B61E8BD240003AB9D6 /* KVAmountInputTextField.m */,
 				8BAF04031B288D7000159874 /* LEAmountInputTextField.h */,
 				8BAF04041B288D7000159874 /* LEAmountInputTextField.m */,
 				8B2E92B61AF6EC1300F94CB6 /* LEAmountInputView.h */,
@@ -124,9 +153,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B2E92AD1AF6EB9A00F94CB6 /* Build configuration list for PBXNativeTarget "LEAmountInputViewDemo" */;
 			buildPhases = (
+				D0810296888E9589BF68E16F /* [CP] Check Pods Manifest.lock */,
 				8B2E92861AF6EB9A00F94CB6 /* Sources */,
 				8B2E92871AF6EB9A00F94CB6 /* Frameworks */,
 				8B2E92881AF6EB9A00F94CB6 /* Resources */,
+				8F918BBD378B99BA438B90B3 /* [CP] Embed Pods Frameworks */,
+				3162C7C76CB9E62C5DA97023 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,6 +214,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3162C7C76CB9E62C5DA97023 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LEAmountInputViewDemo/Pods-LEAmountInputViewDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F918BBD378B99BA438B90B3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LEAmountInputViewDemo/Pods-LEAmountInputViewDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D0810296888E9589BF68E16F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8B2E92861AF6EB9A00F94CB6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -196,6 +276,7 @@
 				8B2E92901AF6EB9A00F94CB6 /* main.m in Sources */,
 				8B2E92C11AF6EC1300F94CB6 /* LEAmountInputView.m in Sources */,
 				8BAF04051B288D7000159874 /* LEAmountInputTextField.m in Sources */,
+				53C701B71E8BD240003AB9D6 /* KVAmountInputTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +391,7 @@
 		};
 		8B2E92AE1AF6EB9A00F94CB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D821533D0C09988ED36DF2F2 /* Pods-LEAmountInputViewDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LEAmountInputViewDemo/Info.plist;
@@ -321,6 +403,7 @@
 		};
 		8B2E92AF1AF6EB9A00F94CB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA961FFE6B381FD3D4B63158 /* Pods-LEAmountInputViewDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LEAmountInputViewDemo/Info.plist;

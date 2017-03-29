@@ -16,9 +16,9 @@ Pod::Spec.new do |s|
   s.screenshots      = "https://github.com/efremidze/LEAmountInputView/raw/master/Screenshots/example.gif"
   s.license          = 'MIT'
   s.author           = { "Lasha Efremidze" => "efremidzel@hotmail.com" }
-  s.source           = { :git => "https://github.com/efremidze/LEAmountInputView.git", :tag => s.version.to_s }
-  s.social_media_url = 'http://linkedin.com/in/efremidze'
+  s.source           = { :git => "https://github.com/tungngodinh/LEAmountInputView.git", :tag => s.version.to_s }
   s.platform         = :ios, '7.0'
   s.requires_arc     = true
   s.source_files     = 'LEAmountInputView/*.{h,m}'
+  s.dependency    'FontAwesomeKit'
 end

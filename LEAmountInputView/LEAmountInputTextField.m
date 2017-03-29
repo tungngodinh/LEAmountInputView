@@ -12,6 +12,7 @@
 @interface LEAmountInputTextField () <LENumberPadDataSource, LENumberPadDelegate>
 
 @property (nonatomic, strong) NSNumberFormatter *numberFormatter;
+@property (nonatomic, strong) NSDate *start;
 
 @end
 
@@ -150,6 +151,32 @@
 {
     return [UIColor colorWithWhite:0.9f alpha:1.0f];
 }
+
+
+- (SEL)numberPad:(LENumberPad *)numberPad touchDownActionForButtonAtIndexPath:(NSIndexPath *)indextPath {
+    if (indextPath.row == 9) {
+        return @selector(onButtonTouchDown:);
+    }
+    return nil;
+}
+
+- (void)onButtonTouchDown:(UIButton *)button {
+    self.start = [NSDate date];
+    [self changeValueWithButton:button];
+}
+
+- (void)changeValueWithButton:(UIButton *)button {
+    
+    if (button.state != UIControlStateNormal ) {
+        NSLog(@"changeValueWithButton");
+        CGFloat elapsed = MAX( 1, fabs( [self.start timeIntervalSinceNow] ) );
+        CGFloat delay = 0.15 / elapsed;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)( delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self changeValueWithButton:button];
+        });
+    }
+}
+
 
 #pragma mark - LENumberPadDelegate
 
