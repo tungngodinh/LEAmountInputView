@@ -191,7 +191,10 @@
 
 - (SEL)touchDownActionForButtonAtIndexPath:(NSIndexPath *)indextPath;
 {
-    return [self.dataSource numberPad:self touchDownActionForButtonAtIndexPath:indextPath];
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(numberPad:touchDownActionForButtonAtIndexPath:)]) {
+        return [self.dataSource numberPad:self touchDownActionForButtonAtIndexPath:indextPath];
+    }
+    return nil;
 }
 
 @end
