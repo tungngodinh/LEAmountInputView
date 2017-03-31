@@ -185,7 +185,8 @@
         return _amountValue > 0
                 || [[self.numberFormater numberFromString:stringValue] boolValue]
                 || [stringValue isEqualToString:@"."]
-                || length == self.numberFormater.maximumFractionDigits;
+                || length == self.numberFormater.maximumFractionDigits
+                || length == 0;
     }
     
     return _amountValue > 0 || [[self.numberFormater numberFromString:stringValue] boolValue];
