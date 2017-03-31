@@ -27,6 +27,11 @@ typedef void (^KVAmountInputTextFieldValueChanged)(double amountValue, BOOL shou
  */
 @property (nonatomic, strong) NSNumberFormatter *numberFormater;
 
+/**
+ *  No value display text
+ */
+@property (nonatomic, strong) NSString *noValueDisplayText;
+
 /*!
  * The block return amountValue
  */

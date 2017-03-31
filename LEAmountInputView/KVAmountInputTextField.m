@@ -11,10 +11,10 @@
 #import "LEAmountInputView.h"
 #import "KVAmountInputTextField.h"
 
-@interface KVAmountInputTextField()<LENumberPadDataSource, LENumberPadDelegate>
+@interface KVAmountInputTextField()<LENumberPadDataSource, LENumberPadDelegate, UITextFieldDelegate>
 
-@property (nonatomic, strong) LENumberPad *numberPad;
 @property (nonatomic, strong) NSDate *start;
+@property (nonatomic, strong) LENumberPad *numberPad;
 
 @end
 
@@ -39,21 +39,29 @@
 - (void)setUpView {
     self.inputView = self.numberPad;
     self.text = [self.numberFormater stringFromNumber:@(_amountValue)];
-    
-    UIButton *clearButton =[[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-    FAKIonIcons *icon = [FAKIonIcons closeCircledIconWithSize:14];
-    [icon setAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
-    [clearButton setImage:[icon imageWithSize:CGSizeMake(14, 14)] forState:UIControlStateNormal];
-    [clearButton addTarget:self action:@selector(onClearButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.rightView = clearButton;
-    self.rightView.contentMode = UIViewContentModeCenter;
-    self.rightViewMode = UITextFieldViewModeWhileEditing;
+    self.noValueDisplayText = @"0";
+    self.delegate = self;
+}
 
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    if ([self.delegate isEqual:self]) {
+        self.amountValue = 0;
+        if (self.valueChangedBlock) {
+            self.valueChangedBlock(0, self.shouldShowDotKey);
+        }
+        return NO;
+    } else {
+        _amountValue = 0;
+        if ([self.delegate respondsToSelector:@selector(textFieldShouldClear:)]) {
+            return [self.delegate textFieldShouldClear:self];
+        }
+        return YES;
+    }
 }
 
 - (void)onClearButtonTapped:(UIButton *)sender {
     self.amountValue = 0;
-    self.text = @"0";
+    self.text = self.noValueDisplayText;
     if (self.valueChangedBlock) {
         self.valueChangedBlock(0, self.shouldShowDotKey);
     }
@@ -69,8 +77,6 @@
     }
     return [NSString stringWithFormat:@"%d", (int)indexPath.item + 1];
 }
-
-
 
 #pragma mark - LENumberPadDataSource
 
@@ -134,13 +140,14 @@
 
 - (void)numberPad:(LENumberPad *)numberPad didSelectButtonAtIndexPath:(NSIndexPath *)indexPath {
     NSString *text = self.text;
+
     text = [text stringByReplacingOccurrencesOfString:@"," withString:@""];
     
     if (indexPath.item == 11) {
         if (text.length > 1) {
             text = [text substringToIndex:text.length - 1];
         } else {
-            text = @"0";
+            text = self.noValueDisplayText;
         }
 
     } else {
@@ -197,7 +204,18 @@
 - (void)setAmountValue:(double)amountValue {
     if (_amountValue != amountValue) {
         _amountValue = amountValue;
-        self.text = [self.numberFormater stringFromNumber:@(_amountValue)];
+        if (_amountValue > 0) {
+            self.text = [self.numberFormater stringFromNumber:@(_amountValue)];
+        } else {
+            self.text = self.noValueDisplayText;
+        }
+    }
+}
+
+- (void)setNoValueDisplayText:(NSString *)noValueDisplayText {
+    _noValueDisplayText = noValueDisplayText;
+    if (_amountValue == 0) {
+        self.text = noValueDisplayText;
     }
 }
 
