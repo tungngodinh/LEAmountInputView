@@ -146,7 +146,7 @@
 - (void)numberPad:(LENumberPad *)numberPad didSelectButtonAtIndexPath:(NSIndexPath *)indexPath {
     NSNumber *amount = @0;
     NSString *text = self.text;
-
+    
     text = [text stringByReplacingOccurrencesOfString:self.numberFormatter.groupingSeparator withString:@""];
     
     if (indexPath.item == NA_BACKSPACE_BUTTON_INDEX) {
@@ -154,13 +154,13 @@
             text = [text substringToIndex:text.length - 1];
             amount = [self.numberFormatter numberFromString:text];
         } else {
-            amount = nil;            
+            amount = nil;
         }
-        self.amount = amount;
+        
     } else if (indexPath.item == NA_DOT_OR_THOUDSAND_BUTTON_INDEX && [self shouldShowDot]) {
         if (![self.text containsString:self.numberFormatter.decimalSeparator]) {
             self.text = [self.text stringByAppendingString:self.numberFormatter.decimalSeparator];
-        }        
+        }
         return;
     } else {
         UIButton *button = [numberPad buttonAtIndexPath:indexPath];
@@ -172,11 +172,13 @@
                 amount = @100;
             }
         }
-        if ([self shouldChangeAmount:amount]) {
-            self.amount = amount;
-            [self didChangeAmount:amount];
+        if (![self shouldChangeAmount:amount]) {
+            return;
+            
         }
     }
+    self.amount = amount;
+    [self didChangeAmount:amount];
 }
 
 #pragma mark - privates
@@ -248,7 +250,7 @@
             return [self.delegate textFieldShouldClear:textField];
         }
         return NO;
-    }    
+    }
 }
 
 #pragma mark - Setter
@@ -271,7 +273,7 @@
             _numberFormatter.maximumFractionDigits = 3;
             break;
         case KVAmountInputTextFieldTypePercentage:
-             _numberFormatter.maximumFractionDigits = 2;
+            _numberFormatter.maximumFractionDigits = 2;
             break;
         default:
             break;
