@@ -7,9 +7,13 @@
 //
 
 #import "ViewController.h"
-#import "LEAmountInputView.h"
+#import "KVAmountInputTextField.h"
 
-@interface ViewController () <LEAmountInputTextFieldDelegate>
+@interface ViewController () <KVAmountInputTextFieldDelegate>
+@property (weak, nonatomic) IBOutlet KVAmountInputTextField *kvAmountTextField;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *typeSegment;
+@property (weak, nonatomic) IBOutlet UITextField *noValueDisplayTextField;
+@property (weak, nonatomic) IBOutlet UILabel *resetToZeroLabel;
 
 @end
 
@@ -18,42 +22,56 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self setup];
+    self.kvAmountTextField.delegate = self;
 }
 
-#pragma mark - LEAmountInputView
-
-- (void)setup
-{
-    LEAmountInputView *amountInputView = [[LEAmountInputView alloc] initWithFrame:CGRectZero numberStyle:NSNumberFormatterCurrencyStyle];
-    amountInputView.translatesAutoresizingMaskIntoConstraints = NO;
-    amountInputView.textField.delegate = self;
-    [self.view addSubview:amountInputView];
-    
-    NSDictionary *views = NSDictionaryOfVariableBindings(amountInputView);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[amountInputView]-10-|" options:0 metrics:0 views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[amountInputView]-10-|" options:0 metrics:0 views:views]];
-}
-
-#pragma mark - LEAmountInputTextFieldDelegate
-
-- (BOOL)textField:(LEAmountInputTextField *)textField shouldChangeAmount:(NSNumber *)amount
-{
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, amount);
-    
-    double maxAmount = 999999.99;
-    double totalAmount = amount.doubleValue;
-    if (totalAmount > maxAmount) {
-        textField.amount = @(maxAmount);
-        return NO;
+- (IBAction)amounTextFieldTypeChange:(id)sender {
+    switch (self.typeSegment.selectedSegmentIndex) {
+        case 0:
+            [self.kvAmountTextField setType:KVAmountInputTextFieldTypeCurrency];
+            break;
+        case 1:
+            [self.kvAmountTextField setType:KVAmountInputTextFieldTypePercentage];
+            break;
+        case 2:
+            [self.kvAmountTextField setType:KVAmountInputTextFieldTypeQuantity];
+        default:
+            break;
     }
+}
+
+- (IBAction)resetToZero:(id)sender {
+    UISwitch *switchView = (UISwitch *)sender;
+    self.kvAmountTextField.resetToZeroIfCleared = switchView.on;
+    self.resetToZeroLabel.textColor = switchView.on ? self.view.tintColor : [UIColor lightGrayColor];
+}
+
+/**
+ *  Asks the delegate whether the amount should be changed.
+ *
+ *  If you do not implement this method, the default return value is YES.
+ *
+ *  @param textField The text field object that is asking whether the amount should change.
+ *  @param amount    The new amount.
+ *
+ *  @return YES if the amount should be changed or NO if it should not.
+ */
+/*- (BOOL)textField:(KVAmountInputTextField *)textField shouldChangeAmount:(NSNumber *)amount {
+    
+}*/
+
+/**
+ *  Tells the delegate that the amount changed. It does not call this method when you programmatically set the amount.
+ *
+ *  If you do not implement this method, the default return value is depend on the `type`.
+ *  @param textField The text field object that is notifying you of the change.
+ *  @param amount    The amount that was changed.
+ */
+- (void)textField:(KVAmountInputTextField *)textField didChangeAmount:(NSNumber *)amount {
+    NSLog(@"%@",amount);
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
     return YES;
 }
-
-- (void)textField:(LEAmountInputTextField *)textField didChangeAmount:(NSNumber *)amount
-{
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, amount);
-}
-
 @end
