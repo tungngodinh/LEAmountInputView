@@ -243,9 +243,11 @@
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
     if (self.resetToZeroIfCleared) {
         self.amount = @0;
+        [self didChangeAmount:self.amount];
         return NO;
     } else {
         self.amount = nil;
+        [self didChangeAmount:self.amount];
         if (self.delegate && [self.delegate respondsToSelector:@selector(textFieldShouldClear:)]) {
             return [self.delegate textFieldShouldClear:textField];
         }
