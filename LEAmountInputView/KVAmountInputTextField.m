@@ -13,6 +13,7 @@
 
 #define NA_BACKSPACE_BUTTON_INDEX 11
 #define NA_DOT_OR_THOUDSAND_BUTTON_INDEX 9
+#define NA_ZERO_BUTTON_INDEX 10
 
 @interface KVAmountInputTextField()<LENumberPadDataSource, LENumberPadDelegate, UITextFieldDelegate>
 
@@ -150,7 +151,7 @@
     text = [text stringByReplacingOccurrencesOfString:self.numberFormatter.groupingSeparator withString:@""];
     
     if (indexPath.item == NA_BACKSPACE_BUTTON_INDEX) {
-        if (text.length > 1) {
+        if (text.length > 0) {
             text = [text substringToIndex:text.length - 1];
             amount = [self.numberFormatter numberFromString:text];
         } else {
@@ -164,20 +165,27 @@
         return;
     } else {
         UIButton *button = [numberPad buttonAtIndexPath:indexPath];
-        NSMutableString *string = [NSMutableString stringWithString:text];
-        [string appendString:button.titleLabel.text];
-        amount = [self.numberFormatter numberFromString:string];
+        text = [text stringByAppendingString:button.titleLabel.text];
+        amount = [self.numberFormatter numberFromString:text];
         if (self.type == KVAmountInputTextFieldTypePercentage) {
             if ([amount doubleValue] > 100) {
-                amount = @100;
+                self.amount = @100;
+                [self didChangeAmount:self.amount];
+                return;
             }
         }
         if (![self shouldChangeAmount:amount]) {
             return;
-            
         }
     }
-    self.amount = amount;
+    if ([self.text containsString:self.numberFormatter.decimalSeparator] || [text containsString:@".0"]) {
+        // Xử lý trường hợp nhập xxx.0x
+        self.text = [self formatedIntegerDigits:text];
+    } else {
+        amount = [self.numberFormatter numberFromString:text];
+        self.amount = amount;
+    }
+    
     [self didChangeAmount:amount];
 }
 
@@ -231,6 +239,18 @@
         }
     }
     return NO;
+}
+
+- (NSString *)formatedIntegerDigits:(NSString *)text {
+    NSString *integerCharacters = text;
+    NSString *fraction = @"";
+    if ([text containsString:@"."]) {
+        NSInteger locationOfDot = [text rangeOfString:@"."].location;
+        integerCharacters = [text substringToIndex:locationOfDot];
+        fraction = [text substringFromIndex:locationOfDot];
+    }
+    NSNumber *integerDigitsValue = [self.numberFormatter numberFromString:integerCharacters];
+    return [[self.numberFormatter stringFromNumber:integerDigitsValue] stringByAppendingString:fraction];
 }
 
 - (void)didChangeAmount:(NSNumber *)amount
