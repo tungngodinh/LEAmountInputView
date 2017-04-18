@@ -160,9 +160,8 @@
         
     } else if (indexPath.item == NA_DOT_OR_THOUDSAND_BUTTON_INDEX && [self shouldShowDot]) {
         if (![self.text containsString:self.numberFormatter.decimalSeparator]) {
-            self.text = [self.text stringByAppendingString:self.numberFormatter.decimalSeparator];
+            text = [text stringByAppendingString:self.numberFormatter.decimalSeparator];
         }
-        return;
     } else {
         UIButton *button = [numberPad buttonAtIndexPath:indexPath];
         text = [text stringByAppendingString:button.titleLabel.text];
@@ -178,7 +177,8 @@
             return;
         }
     }
-    if ([self.text containsString:self.numberFormatter.decimalSeparator] || [text containsString:@".0"]) {
+    
+    if ([text containsString:self.numberFormatter.decimalSeparator] || [text containsString:@".0"]) {
         // Xử lý trường hợp nhập xxx.0x
         self.text = [self formatedIntegerDigits:text];
     } else {
@@ -247,6 +247,9 @@
     if ([text containsString:@"."]) {
         NSInteger locationOfDot = [text rangeOfString:@"."].location;
         integerCharacters = [text substringToIndex:locationOfDot];
+        if (integerCharacters.length == 0) {
+            integerCharacters = @"0";
+        }
         fraction = [text substringFromIndex:locationOfDot];
     }
     NSNumber *integerDigitsValue = [self.numberFormatter numberFromString:integerCharacters];
