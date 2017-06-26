@@ -10,10 +10,11 @@
 
 #import "LENumberPad.h"
 #import "KVAmountInputTextField.h"
-
+#import "NSString+NANumberValidation.h"
 #define NA_BACKSPACE_BUTTON_INDEX 11
 #define NA_DOT_OR_THOUDSAND_BUTTON_INDEX 9
 #define NA_ZERO_BUTTON_INDEX 10
+
 
 @interface KVAmountInputTextField()<LENumberPadDataSource, LENumberPadDelegate, UITextFieldDelegate>
 
@@ -62,6 +63,7 @@
     self.inputView = self.numberPad;
     self.text = [self.numberFormatter stringFromNumber:self.amount];
     self.type = type;
+    self.maximumIntegerDigits = 13;
     super.delegate = self;
 }
 
@@ -82,6 +84,15 @@
         }
     }
     return [NSString stringWithFormat:@"%d", (int)indexPath.item + 1];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (![newString isInvalidStringForNumberFormatter:self.numberFormatter]) {
+        [self setAmount:[self.numberFormatter numberFromString:newString]];
+    }
+    
+    return NO;
 }
 
 #pragma mark - LENumberPadDataSource
@@ -165,6 +176,10 @@
     } else {
         UIButton *button = [numberPad buttonAtIndexPath:indexPath];
         text = [text stringByAppendingString:button.titleLabel.text];
+        // Nếu đã max length thì không cho nhập thêm nữa
+        if ([text isInvalidStringForNumberFormatter:self.numberFormatter]) {
+            return;
+        }
         amount = [self.numberFormatter numberFromString:text];
         if (self.type == KVAmountInputTextFieldTypePercentage) {
             if ([amount doubleValue] > 100) {
@@ -214,6 +229,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(textField:shouldChangeAmount:)]) {
         return [self.delegate textField:self shouldChangeAmount:self.amount];
     }
+    
     switch (self.type) {
         case KVAmountInputTextFieldTypeCurrency:
             return YES;
@@ -293,12 +309,15 @@
     switch (type) {
         case KVAmountInputTextFieldTypeCurrency:
             _numberFormatter.maximumFractionDigits = 0;
+            _numberFormatter.maximumIntegerDigits = 13;
             break;
         case KVAmountInputTextFieldTypeQuantity:
             _numberFormatter.maximumFractionDigits = 3;
+            _numberFormatter.maximumIntegerDigits = 13;
             break;
         case KVAmountInputTextFieldTypePercentage:
             _numberFormatter.maximumFractionDigits = 2;
+            _numberFormatter.maximumIntegerDigits = 3;
             break;
         default:
             break;

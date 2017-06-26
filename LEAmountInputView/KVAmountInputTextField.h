@@ -59,7 +59,10 @@ typedef enum : NSUInteger {
  *  This value is nulable depend on type.
  */
 @property (nonatomic, strong) NSNumber *amount;
-
+/**
+ * Maximum of integer digit, default is 13
+ */
+@property (nonatomic, assign) NSUInteger maximumIntegerDigits;
 /*!
  * The number formater of the `KVAmountInputTextField` text.
  * Default is format for currency number
