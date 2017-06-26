@@ -21,7 +21,19 @@
 		8B3FBBA11B04036800DE7B2F /* LENumberPadCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3FBBA01B04036800DE7B2F /* LENumberPadCollectionViewCell.m */; };
 		8BAF04051B288D7000159874 /* LEAmountInputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAF04041B288D7000159874 /* LEAmountInputTextField.m */; };
 		8BAF040B1B28906200159874 /* NSNumberFormatter+LEAmountInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAF040A1B28906200159874 /* NSNumberFormatter+LEAmountInputView.m */; };
+		A083C9C11F0103AF002391A1 /* LEAmountInputViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A083C9C01F0103AF002391A1 /* LEAmountInputViewDemoTests.m */; };
+		A083C9CA1F0107E2002391A1 /* NSString+NANumberValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = A083C9C91F0107E2002391A1 /* NSString+NANumberValidation.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A083C9C31F0103B0002391A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B2E92821AF6EB9A00F94CB6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B2E92891AF6EB9A00F94CB6;
+			remoteInfo = LEAmountInputViewDemo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		53C701B51E8BD240003AB9D6 /* KVAmountInputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVAmountInputTextField.h; sourceTree = "<group>"; };
@@ -49,6 +61,11 @@
 		8BAF04041B288D7000159874 /* LEAmountInputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEAmountInputTextField.m; sourceTree = "<group>"; };
 		8BAF04091B28906200159874 /* NSNumberFormatter+LEAmountInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumberFormatter+LEAmountInputView.h"; sourceTree = "<group>"; };
 		8BAF040A1B28906200159874 /* NSNumberFormatter+LEAmountInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumberFormatter+LEAmountInputView.m"; sourceTree = "<group>"; };
+		A083C9BE1F0103AF002391A1 /* LEAmountInputViewDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LEAmountInputViewDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A083C9C01F0103AF002391A1 /* LEAmountInputViewDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEAmountInputViewDemoTests.m; sourceTree = "<group>"; };
+		A083C9C21F0103B0002391A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A083C9C81F0107E2002391A1 /* NSString+NANumberValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NANumberValidation.h"; sourceTree = "<group>"; };
+		A083C9C91F0107E2002391A1 /* NSString+NANumberValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NANumberValidation.m"; sourceTree = "<group>"; };
 		D821533D0C09988ED36DF2F2 /* Pods-LEAmountInputViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LEAmountInputViewDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LEAmountInputViewDemo/Pods-LEAmountInputViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		FA961FFE6B381FD3D4B63158 /* Pods-LEAmountInputViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LEAmountInputViewDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LEAmountInputViewDemo/Pods-LEAmountInputViewDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,6 +76,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DD4BBE05D75741089A34EB9 /* libPods-LEAmountInputViewDemo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A083C9BB1F0103AF002391A1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +111,7 @@
 			children = (
 				8B2E92B31AF6EC1300F94CB6 /* LEAmountInputView */,
 				8B2E928C1AF6EB9A00F94CB6 /* LEAmountInputViewDemo */,
+				A083C9BF1F0103AF002391A1 /* LEAmountInputViewDemoTests */,
 				8B2E928B1AF6EB9A00F94CB6 /* Products */,
 				0223615C9D4CFD7DA9B4CB23 /* Pods */,
 				5DD822F7C02276D8B9FFA93A /* Frameworks */,
@@ -97,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				8B2E928A1AF6EB9A00F94CB6 /* LEAmountInputViewDemo.app */,
+				A083C9BE1F0103AF002391A1 /* LEAmountInputViewDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,8 +168,19 @@
 				8BAF040A1B28906200159874 /* NSNumberFormatter+LEAmountInputView.m */,
 				8B3FBB931B03E13F00DE7B2F /* UIImage+LENumberPad.h */,
 				8B3FBB941B03E13F00DE7B2F /* UIImage+LENumberPad.m */,
+				A083C9C81F0107E2002391A1 /* NSString+NANumberValidation.h */,
+				A083C9C91F0107E2002391A1 /* NSString+NANumberValidation.m */,
 			);
 			path = LEAmountInputView;
+			sourceTree = "<group>";
+		};
+		A083C9BF1F0103AF002391A1 /* LEAmountInputViewDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				A083C9C01F0103AF002391A1 /* LEAmountInputViewDemoTests.m */,
+				A083C9C21F0103B0002391A1 /* Info.plist */,
+			);
+			path = LEAmountInputViewDemoTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +206,24 @@
 			productReference = 8B2E928A1AF6EB9A00F94CB6 /* LEAmountInputViewDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A083C9BD1F0103AF002391A1 /* LEAmountInputViewDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A083C9C71F0103B0002391A1 /* Build configuration list for PBXNativeTarget "LEAmountInputViewDemoTests" */;
+			buildPhases = (
+				A083C9BA1F0103AF002391A1 /* Sources */,
+				A083C9BB1F0103AF002391A1 /* Frameworks */,
+				A083C9BC1F0103AF002391A1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A083C9C41F0103B0002391A1 /* PBXTargetDependency */,
+			);
+			name = LEAmountInputViewDemoTests;
+			productName = LEAmountInputViewDemoTests;
+			productReference = A083C9BE1F0103AF002391A1 /* LEAmountInputViewDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -182,6 +237,12 @@
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = MQAGCVCE9F;
 						ProvisioningStyle = Manual;
+					};
+					A083C9BD1F0103AF002391A1 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = MQAGCVCE9F;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8B2E92891AF6EB9A00F94CB6;
 					};
 				};
 			};
@@ -199,6 +260,7 @@
 			projectRoot = "";
 			targets = (
 				8B2E92891AF6EB9A00F94CB6 /* LEAmountInputViewDemo */,
+				A083C9BD1F0103AF002391A1 /* LEAmountInputViewDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -211,6 +273,13 @@
 				8B2E92991AF6EB9A00F94CB6 /* Main.storyboard in Resources */,
 				8B2E929E1AF6EB9A00F94CB6 /* LaunchScreen.xib in Resources */,
 				8B2E929B1AF6EB9A00F94CB6 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A083C9BC1F0103AF002391A1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,12 +346,29 @@
 				8B2E92931AF6EB9A00F94CB6 /* AppDelegate.m in Sources */,
 				8B2E92901AF6EB9A00F94CB6 /* main.m in Sources */,
 				8B2E92C11AF6EC1300F94CB6 /* LEAmountInputView.m in Sources */,
+				A083C9CA1F0107E2002391A1 /* NSString+NANumberValidation.m in Sources */,
 				8BAF04051B288D7000159874 /* LEAmountInputTextField.m in Sources */,
 				53C701B71E8BD240003AB9D6 /* KVAmountInputTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A083C9BA1F0103AF002391A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A083C9C11F0103AF002391A1 /* LEAmountInputViewDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A083C9C41F0103B0002391A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B2E92891AF6EB9A00F94CB6 /* LEAmountInputViewDemo */;
+			targetProxy = A083C9C31F0103B0002391A1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8B2E92971AF6EB9A00F94CB6 /* Main.storyboard */ = {
@@ -421,6 +507,41 @@
 			};
 			name = Release;
 		};
+		A083C9C51F0103B0002391A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MQAGCVCE9F;
+				INFOPLIST_FILE = LEAmountInputViewDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.citigo.LEAmountInputViewDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LEAmountInputViewDemo.app/LEAmountInputViewDemo";
+			};
+			name = Debug;
+		};
+		A083C9C61F0103B0002391A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEVELOPMENT_TEAM = MQAGCVCE9F;
+				INFOPLIST_FILE = LEAmountInputViewDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.citigo.LEAmountInputViewDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LEAmountInputViewDemo.app/LEAmountInputViewDemo";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -441,6 +562,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		A083C9C71F0103B0002391A1 /* Build configuration list for PBXNativeTarget "LEAmountInputViewDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A083C9C51F0103B0002391A1 /* Debug */,
+				A083C9C61F0103B0002391A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

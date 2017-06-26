@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A083C9BD1F0103AF002391A1"
+               BuildableName = "LEAmountInputViewDemoTests.xctest"
+               BlueprintName = "LEAmountInputViewDemoTests"
+               ReferencedContainer = "container:LEAmountInputViewDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
