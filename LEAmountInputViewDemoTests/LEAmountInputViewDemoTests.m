@@ -83,4 +83,24 @@
         XCTAssertEqual((int)result, [[testStrings valueForKey:key] integerValue] , @"%@", key);
     }
 }
+
+- (void)testAmounTextField {
+    
+    self.textField.type = KVAmountInputTextFieldTypeQuantity;
+    XCTAssertEqual( [self.textField.numberFormatter numberFromString:@"9,999,999,999,999.999"].doubleValue, 9999999999999.999 , @"%@", self.textField.amount);
+    NSDictionary *testStrings = @{@"9,999,999,999,999.999" : [NSNumber numberWithDouble:9999999999999.999],
+                                  @"999,999,999,999.999" :  [NSNumber numberWithDouble:999999999999.999]};
+    for (NSString *key in testStrings.allKeys) {
+        XCTAssertEqual( [self.textField.numberFormatter numberFromString:key].doubleValue, [[testStrings valueForKey:key] doubleValue] , @"%@", self.textField.amount);
+    }
+}
+
+- (void)testdecimalNumberTextField {
+
+    NSDecimalNumberHandler *round = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:3 raiseOnExactness:NO raiseOnOverflow:YES raiseOnUnderflow:YES raiseOnDivideByZero:NO];
+    NSDecimalNumber *decimalNumber = [NSDecimalNumber decimalNumberWithString:[@"9,999,999,999,999.9999" stringByReplacingOccurrencesOfString:@"," withString:@""]];
+    NSNumber *number = (NSNumber *)[decimalNumber decimalNumberByRoundingAccordingToBehavior:round];
+    XCTAssertEqual(number.doubleValue, 9999999999999.999);
+    
+}
 @end

@@ -201,7 +201,7 @@
         self.amount = amount;
     }
     
-    [self didChangeAmount:amount];
+    [self didChangeAmount:self.amount];
 }
 
 #pragma mark - privates
@@ -328,7 +328,10 @@
 #pragma mark - Getter
 
 - (NSNumber *)amount {
-    return [self.numberFormatter numberFromString:self.text];
+    NSDecimalNumberHandler *round = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown scale:3 raiseOnExactness:NO raiseOnOverflow:YES raiseOnUnderflow:YES raiseOnDivideByZero:NO];
+    NSDecimalNumber *decimalNumber = [NSDecimalNumber decimalNumberWithString:[self.text stringByReplacingOccurrencesOfString:@"," withString:@""]];
+    NSNumber *number = (NSNumber *)[decimalNumber decimalNumberByRoundingAccordingToBehavior:round];
+    return number;
 }
 
 - (NSNumberFormatter *)numberFormatter {
