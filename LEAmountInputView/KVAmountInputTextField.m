@@ -302,6 +302,7 @@
     } else {
         self.text = self.resetToZeroIfCleared ? @"0" : nil;
     }
+    [self didChangeAmount:self.amount];
 }
 
 - (void)setType:(KVAmountInputTextFieldType)type {
