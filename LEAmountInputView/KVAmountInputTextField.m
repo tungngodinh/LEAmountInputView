@@ -329,9 +329,14 @@
 #pragma mark - Getter
 
 - (NSNumber *)amount {
+    
     NSDecimalNumberHandler *round = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown scale:3 raiseOnExactness:NO raiseOnOverflow:YES raiseOnUnderflow:YES raiseOnDivideByZero:NO];
     NSDecimalNumber *decimalNumber = [NSDecimalNumber decimalNumberWithString:[self.text stringByReplacingOccurrencesOfString:@"," withString:@""]];
+    if ([decimalNumber isEqualToNumber:[NSDecimalNumber notANumber]]) {
+        return self.resetToZeroIfCleared ? @0 : nil;
+    }
     NSNumber *number = (NSNumber *)[decimalNumber decimalNumberByRoundingAccordingToBehavior:round];
+    
     return number;
 }
 
