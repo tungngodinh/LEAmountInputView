@@ -10,15 +10,16 @@
 
 @implementation NSString (KVValidationString)
 
-- (BOOL)isInvalidStringForNumberFormatter:(NSNumberFormatter *)numberFormatter {
+- (BOOL)isInvalidStringForNumberFormatter:(NSNumberFormatter *)numberFormatter
+                                maxLenght:(NSInteger)max {
     if ([numberFormatter numberFromString:self] == nil) {
         return YES;
     }
     NSString *text = [self stringByReplacingOccurrencesOfString:[numberFormatter groupingSeparator] withString:@""];
     if (numberFormatter.maximumFractionDigits == 0 && [text containsString:@"."]) {
         return YES;
-    } else if (([text containsString:@"."] && text.length > (numberFormatter.maximumIntegerDigits + numberFormatter.maximumFractionDigits + 1)) ||
-        (![text containsString:@"."] && text.length > numberFormatter.maximumIntegerDigits)) {
+    } else if (([text containsString:@"."] && text.length > (max + numberFormatter.maximumFractionDigits + 1)) ||
+        (![text containsString:@"."] && text.length > max)) {
         return YES;
     } else if ([text containsString:@"."]) {
         NSRange range = [self rangeOfString:numberFormatter.decimalSeparator];

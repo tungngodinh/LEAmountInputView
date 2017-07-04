@@ -10,6 +10,7 @@
 
 @interface NSString (KVValidationString)
 
-- (BOOL)isInvalidStringForNumberFormatter:(NSNumberFormatter *)numberFormatter;
+- (BOOL)isInvalidStringForNumberFormatter:(NSNumberFormatter *)numberFormatter
+                                maxLenght:(NSInteger)max;
 
 @end

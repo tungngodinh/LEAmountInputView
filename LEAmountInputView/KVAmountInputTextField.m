@@ -88,7 +88,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    if (![newString isInvalidStringForNumberFormatter:self.numberFormatter]) {
+    if (![newString isInvalidStringForNumberFormatter:self.numberFormatter maxLenght:self.maximumIntegerDigits]) {
         [self setAmount:[self.numberFormatter numberFromString:newString]];
     }
     
@@ -177,7 +177,7 @@
         UIButton *button = [numberPad buttonAtIndexPath:indexPath];
         text = [text stringByAppendingString:button.titleLabel.text];
         // Nếu đã max length thì không cho nhập thêm nữa
-        if ([text isInvalidStringForNumberFormatter:self.numberFormatter]) {
+        if ([text isInvalidStringForNumberFormatter:self.numberFormatter maxLenght:self.maximumIntegerDigits]) {
             return;
         }
         amount = [self.numberFormatter numberFromString:text];
@@ -310,15 +310,12 @@
     switch (type) {
         case KVAmountInputTextFieldTypeCurrency:
             _numberFormatter.maximumFractionDigits = 0;
-            _numberFormatter.maximumIntegerDigits = 13;
             break;
         case KVAmountInputTextFieldTypeQuantity:
             _numberFormatter.maximumFractionDigits = 3;
-            _numberFormatter.maximumIntegerDigits = 13;
             break;
         case KVAmountInputTextFieldTypePercentage:
             _numberFormatter.maximumFractionDigits = 2;
-            _numberFormatter.maximumIntegerDigits = 3;
             break;
         default:
             break;
