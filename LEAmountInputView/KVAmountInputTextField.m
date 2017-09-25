@@ -11,10 +11,16 @@
 #import "LEAmountInputView.h"
 #import "KVAmountInputTextField.h"
 
-@interface KVAmountInputTextField()<LENumberPadDataSource, LENumberPadDelegate, UITextFieldDelegate>
+#define maxInputLenght                              12
+#define backSpaceButtonIndex                        11
+#define dotButtonIndex                              9
+#define zeroButtonIndex                             10
+#define HelveticaNeue(x)                            [UIFont fontWithName:@"HelveticaNeue" size:x]
 
-@property (nonatomic, strong) NSDate *start;
+@interface KVAmountInputTextField()<LENumberPadDataSource, LENumberPadDelegate>
+
 @property (nonatomic, strong) LENumberPad *numberPad;
+@property (nonatomic, strong) NSDate *start;
 
 @end
 
@@ -39,44 +45,40 @@
 - (void)setUpView {
     self.inputView = self.numberPad;
     self.text = [self.numberFormater stringFromNumber:@(_amountValue)];
-    self.noValueDisplayText = @"0";
-    self.delegate = self;
-}
-
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if ([self.delegate isEqual:self]) {
-        self.amountValue = 0;
-        if (self.valueChangedBlock) {
-            self.valueChangedBlock(0, self.shouldShowDotKey);
-        }
-        return NO;
-    } else {
-        _amountValue = 0;
-        if ([self.delegate respondsToSelector:@selector(textFieldShouldClear:)]) {
-            return [self.delegate textFieldShouldClear:self];
-        }
-        return YES;
-    }
+    
+    UIButton *clearButton =[[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    FAKIonIcons *icon = [FAKIonIcons closeCircledIconWithSize:14];
+    [icon setAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
+    [clearButton setImage:[icon imageWithSize:CGSizeMake(14, 14)] forState:UIControlStateNormal];
+    [clearButton addTarget:self action:@selector(onClearButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    self.rightView = clearButton;
+    self.rightView.contentMode = UIViewContentModeCenter;
+    self.rightViewMode = UITextFieldViewModeWhileEditing;
+    self.backgroundColor = [UIColor colorWithWhite:0.976 alpha:1.000];
+    self.borderStyle = UITextBorderStyleRoundedRect;
+    _maxValue = 100;
 }
 
 - (void)onClearButtonTapped:(UIButton *)sender {
     self.amountValue = 0;
-    self.text = self.noValueDisplayText;
+    self.text = @"0";
     if (self.valueChangedBlock) {
         self.valueChangedBlock(0, self.shouldShowDotKey);
     }
 }
 
 - (NSString *)buttonTitleAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item == 11) {
+    if (indexPath.item == backSpaceButtonIndex) {
         return [[FAKIonIcons backspaceOutlineIconWithSize:25.0] characterCode];
-    } else if (indexPath.item == 10) {
+    } else if (indexPath.item == zeroButtonIndex) {
         return @"0";
-    } else if (indexPath.item == 9) {
+    } else if (indexPath.item == dotButtonIndex) {
         return self.shouldShowDotKey ? @"." : @"000";
     }
     return [NSString stringWithFormat:@"%d", (int)indexPath.item + 1];
 }
+
+
 
 #pragma mark - LENumberPadDataSource
 
@@ -97,10 +99,10 @@
 }
 
 - (UIFont *)numberPad:(LENumberPad *)numberPad buttonTitleFontForButtonAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item == 11) {
+    if (indexPath.item == backSpaceButtonIndex) {
         return [FAKIonIcons iconFontWithSize:24];
     }
-    return [UIFont fontWithName:@"HelveticaNeue" size:24];
+    return HelveticaNeue(24);
 }
 
 - (UIColor *)numberPad:(LENumberPad *)numberPad buttonBackgroundColorForButtonAtIndexPath:(NSIndexPath *)indexPath {
@@ -112,7 +114,7 @@
 }
 
 - (nullable SEL)numberPad:(LENumberPad *)numberPad touchDownActionForButtonAtIndexPath:(NSIndexPath *)indextPath {
-    if (indextPath.row == 11) {
+    if (indextPath.row == backSpaceButtonIndex) {
         return @selector(onBackSpaceButtonTouchDown:);
     }
     return nil;
@@ -126,7 +128,7 @@
 - (void)changeValueWithButton:(UIButton *)button {
     
     if (button.state != UIControlStateNormal ) {
-        [self numberPad:self.numberPad didSelectButtonAtIndexPath:[NSIndexPath indexPathForRow:11 inSection:0]];
+        [self numberPad:self.numberPad didSelectButtonAtIndexPath:[NSIndexPath indexPathForRow:backSpaceButtonIndex inSection:0]];
         CGFloat elapsed = MAX( 1, fabs( [self.start timeIntervalSinceNow]));
         CGFloat delay = 0.15 / elapsed;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)( delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -140,20 +142,26 @@
 
 - (void)numberPad:(LENumberPad *)numberPad didSelectButtonAtIndexPath:(NSIndexPath *)indexPath {
     NSString *text = self.text;
-
     text = [text stringByReplacingOccurrencesOfString:@"," withString:@""];
     
-    if (indexPath.item == 11) {
+    if (text.length > maxInputLenght && indexPath.row != backSpaceButtonIndex) {
+        return;
+    }
+    
+    if (indexPath.item == backSpaceButtonIndex) {
         if (text.length > 1) {
             text = [text substringToIndex:text.length - 1];
         } else {
-            text = self.noValueDisplayText;
+            text = @"0";
         }
-
+        
     } else {
         NSString *stringValue = [self buttonTitleAtIndexPath:indexPath];
         if ([self needAppendText:stringValue intext:text]) {
             text = [text stringByAppendingString:stringValue];
+            if (text.length > maxInputLenght) {
+                text = [text substringToIndex:maxInputLenght + 1];
+            }
         }
     }
     
@@ -171,22 +179,19 @@
 - (BOOL)needAppendText:(NSString *)stringValue intext:(NSString *)text {
     if (self.shouldShowDotKey) {
         
-        if (_amountValue == 100) {
+        if (_amountValue == _maxValue) {
             return NO;
         }
         
         NSInteger length = text.length;
         if ([text containsString:@"."]) {
             NSRange range = [text rangeOfString:@"."];
-            if ([stringValue isEqualToString:@"."] || length - range.location == self.numberFormater.maximumFractionDigits + 1) {
-                return NO;
-            }
+            return !([stringValue isEqualToString:@"."] || length - range.location > self.numberFormater.maximumFractionDigits);
         }
         return _amountValue > 0
-                || [[self.numberFormater numberFromString:stringValue] boolValue]
-                || [stringValue isEqualToString:@"."]
-                || length == self.numberFormater.maximumFractionDigits
-                || length == 0;
+        || [[self.numberFormater numberFromString:stringValue] boolValue]
+        || [stringValue isEqualToString:@"."]
+        || length == self.numberFormater.maximumFractionDigits;
     }
     
     return _amountValue > 0 || [[self.numberFormater numberFromString:stringValue] boolValue];
@@ -196,7 +201,6 @@
 
 - (void)setShouldShowDotKey:(BOOL)shouldShowDotKey {
     _shouldShowDotKey = shouldShowDotKey;
-    self.numberFormater.maximumFractionDigits = self.shouldShowDotKey ? 2 : 0;
     UIButton *button = [self.numberPad buttonAtIndexPath:[NSIndexPath indexPathForRow:9 inSection:0]];
     [button setTitle:_shouldShowDotKey ? @"." : @"000" forState:UIControlStateNormal];
     [button setTitle:_shouldShowDotKey ? @"." : @"000" forState:UIControlStateSelected];
@@ -205,18 +209,7 @@
 - (void)setAmountValue:(double)amountValue {
     if (_amountValue != amountValue) {
         _amountValue = amountValue;
-        if (_amountValue > 0) {
-            self.text = [self.numberFormater stringFromNumber:@(_amountValue)];
-        } else {
-            self.text = self.noValueDisplayText;
-        }
-    }
-}
-
-- (void)setNoValueDisplayText:(NSString *)noValueDisplayText {
-    _noValueDisplayText = noValueDisplayText;
-    if (_amountValue == 0) {
-        self.text = noValueDisplayText;
+        self.text = [self.numberFormater stringFromNumber:@(_amountValue)];
     }
 }
 
@@ -230,6 +223,14 @@
         _numberFormater.decimalSeparator = @".";
         _numberFormater.groupingSeparator = @",";
         _numberFormater.maximumFractionDigits = self.shouldShowDotKey ? 2 : 0;
+    }
+    if (_shouldShowDotKey) {
+        // maxValue == 100 sử dụng cho % hiển thị 2 số sau thập phân
+        // maxValue > 100 sử dụng cho số lượng hàng hóa hiển thị 3 số sau thập phân
+        _numberFormater.maximumFractionDigits = (_maxValue == 100 ? 2 : 3);
+    } else {
+        // tiền không hiển thị số lẻ
+        self.numberFormater = 0;
     }
     return _numberFormater;
 }
@@ -248,11 +249,11 @@
 
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end

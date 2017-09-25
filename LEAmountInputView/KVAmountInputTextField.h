@@ -28,9 +28,9 @@ typedef void (^KVAmountInputTextFieldValueChanged)(double amountValue, BOOL shou
 @property (nonatomic, strong) NSNumberFormatter *numberFormater;
 
 /**
- *  No value display text
+ *  The limit value allow input
  */
-@property (nonatomic, strong) NSString *noValueDisplayText;
+@property (nonatomic, assign) CGFloat maxValue;
 
 /*!
  * The block return amountValue
