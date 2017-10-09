@@ -164,14 +164,13 @@
     if (indexPath.item == NA_BACKSPACE_BUTTON_INDEX) {
         if (text.length > 0) {
             text = [text substringToIndex:text.length - 1];
-            amount = [self.numberFormatter numberFromString:text];
         } else {
             amount = nil;
         }
-        
     } else if (indexPath.item == NA_DOT_OR_THOUDSAND_BUTTON_INDEX && [self shouldShowDot]) {
-        if (![self.text containsString:self.numberFormatter.decimalSeparator]) {
-            text = [text stringByAppendingString:self.numberFormatter.decimalSeparator];
+        if ([self shouldAppendDotToText]) {
+            self.text = [text stringByAppendingString:self.numberFormatter.decimalSeparator];
+            return;
         }
     } else {
         UIButton *button = [numberPad buttonAtIndexPath:indexPath];
@@ -196,6 +195,7 @@
     if ([text containsString:self.numberFormatter.decimalSeparator] || [text containsString:@".0"]) {
         // Xử lý trường hợp nhập xxx.0x
         self.text = [self formatedIntegerDigits:text];
+        _amount = [self amount:text];
     } else {
         amount = [self.numberFormatter numberFromString:text];
         self.amount = amount;
@@ -205,17 +205,37 @@
 }
 
 #pragma mark - privates
+- (NSNumber *)amount:(NSString *)text {
+    
+    NSDecimalNumberHandler *round = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown scale:3 raiseOnExactness:NO raiseOnOverflow:YES raiseOnUnderflow:YES raiseOnDivideByZero:NO];
+    NSDecimalNumber *decimalNumber = [NSDecimalNumber decimalNumberWithString:[self.text stringByReplacingOccurrencesOfString:@"," withString:@""]];
+    if ([decimalNumber isEqualToNumber:[NSDecimalNumber notANumber]]) {
+        return self.resetToZeroIfCleared ? @0 : nil;
+    }
+    NSNumber *number = (NSNumber *)[decimalNumber decimalNumberByRoundingAccordingToBehavior:round];
+    
+    return number;
+}
+
+- (BOOL)shouldAppendDotToText {
+    if (self.type == KVAmountInputTextFieldTypeQuantity && ![self.text containsString:self.numberFormatter.decimalSeparator]) {
+        return YES;
+    }
+    if(self.type == KVAmountInputTextFieldTypePercentage && self.amount.doubleValue == 100) {
+        return NO;
+    }
+    return YES;
+}
 
 - (BOOL)shouldShowDot {
     return self.type == KVAmountInputTextFieldTypeQuantity ||
-    (self.type == KVAmountInputTextFieldTypePercentage && [self.amount doubleValue] < 100);
+    self.type == KVAmountInputTextFieldTypePercentage;
 }
 
 - (void)configDotOrThousandButton {
     UIButton *button = [self.numberPad buttonAtIndexPath:[NSIndexPath indexPathForRow:NA_DOT_OR_THOUDSAND_BUTTON_INDEX
                                                                             inSection:0]];
-    if (self.type == KVAmountInputTextFieldTypePercentage ||
-        self.type == KVAmountInputTextFieldTypeQuantity) {
+    if ([self shouldShowDot]) {
         [button setTitle:self.numberFormatter.decimalSeparator forState:UIControlStateNormal];
         [button setTitle:self.numberFormatter.decimalSeparator forState:UIControlStateSelected];
     } else {
@@ -227,7 +247,7 @@
 - (BOOL)shouldChangeAmount:(NSNumber *)amount {
     // delegate is assigned
     if (self.delegate && [self.delegate respondsToSelector:@selector(textField:shouldChangeAmount:)]) {
-        return [self.delegate textField:self shouldChangeAmount:self.amount];
+        return [self.delegate textField:self shouldChangeAmount:amount];
     }
     
     switch (self.type) {
@@ -295,14 +315,17 @@
 }
 
 #pragma mark - Setter
-
 - (void)setAmount:(NSNumber *)amount {
-    if (amount) {
-        self.text = [self.numberFormatter stringFromNumber:amount];
+    _amount = amount;
+    [self updateText];
+}
+- (void)updateText {
+    if (self.amount) {
+        self.text = [self.numberFormatter stringFromNumber:self.amount];
     } else {
         self.text = self.resetToZeroIfCleared ? @"0" : nil;
+        _amount = self.resetToZeroIfCleared ? @0 : nil;
     }
-    [self didChangeAmount:self.amount];
 }
 
 - (void)setType:(KVAmountInputTextFieldType)type {
@@ -324,18 +347,6 @@
 }
 
 #pragma mark - Getter
-
-- (NSNumber *)amount {
-    
-    NSDecimalNumberHandler *round = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown scale:3 raiseOnExactness:NO raiseOnOverflow:YES raiseOnUnderflow:YES raiseOnDivideByZero:NO];
-    NSDecimalNumber *decimalNumber = [NSDecimalNumber decimalNumberWithString:[self.text stringByReplacingOccurrencesOfString:@"," withString:@""]];
-    if ([decimalNumber isEqualToNumber:[NSDecimalNumber notANumber]]) {
-        return self.resetToZeroIfCleared ? @0 : nil;
-    }
-    NSNumber *number = (NSNumber *)[decimalNumber decimalNumberByRoundingAccordingToBehavior:round];
-    
-    return number;
-}
 
 - (NSNumberFormatter *)numberFormatter {
     if (!_numberFormatter) {
