@@ -352,7 +352,7 @@
     if (!_numberFormatter) {
         _numberFormatter = [[NSNumberFormatter alloc] init];
         _numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-        _numberFormatter.roundingMode = kCFNumberFormatterRoundUp;
+        _numberFormatter.roundingMode = kCFNumberFormatterRoundHalfUp;
         _numberFormatter.decimalSeparator = @".";
         _numberFormatter.groupingSeparator = @",";
     }
