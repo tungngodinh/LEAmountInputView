@@ -14,6 +14,8 @@ typedef enum : NSUInteger {
     KVAmountInputTextFieldTypeQuantity,
 } KVAmountInputTextFieldType;
 
+typedef void (^KVAmountInputTextFieldValueChanged)(NSNumber * amountValue);
+
 @class KVAmountInputTextField;
 
 /**
@@ -73,6 +75,11 @@ typedef enum : NSUInteger {
  *  No value display text, orrcu clear textfield
  */
 @property (nonatomic, assign) BOOL resetToZeroIfCleared;
+
+/*!
+ * The block return amountValue
+ */
+@property (nonatomic, copy) KVAmountInputTextFieldValueChanged valueChangedBlock;
 
 - (instancetype)initWithFrame:(CGRect)frame andInputType:(KVAmountInputTextFieldType)type;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder andInputType:(KVAmountInputTextFieldType)type;

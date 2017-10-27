@@ -297,6 +297,10 @@
     if ([delegate respondsToSelector:@selector(textField:didChangeAmount:)]) {
         [delegate textField:self didChangeAmount:amount];
     }
+    
+    if (self.valueChangedBlock) {
+        self.valueChangedBlock(self.amount);
+    }
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
@@ -371,4 +375,4 @@
     return _numberPad;
 }
 
-@end
+@end 
