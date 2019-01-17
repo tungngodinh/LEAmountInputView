@@ -11,6 +11,7 @@
 typedef enum : NSUInteger {
     KVAmountInputTextFieldTypePercentage,
     KVAmountInputTextFieldTypeCurrency,
+    KVAmountInputTextFieldTypeCurrencyUsingDecimal,
     KVAmountInputTextFieldTypeQuantity,
 } KVAmountInputTextFieldType;
 

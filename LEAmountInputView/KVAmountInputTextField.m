@@ -76,6 +76,7 @@
         switch (self.type) {
             case KVAmountInputTextFieldTypePercentage:
             case KVAmountInputTextFieldTypeQuantity:
+            case KVAmountInputTextFieldTypeCurrencyUsingDecimal:
                 return self.numberFormatter.decimalSeparator;
             case KVAmountInputTextFieldTypeCurrency:
                 return @"000";
@@ -252,6 +253,7 @@
     
     switch (self.type) {
         case KVAmountInputTextFieldTypeCurrency:
+        case KVAmountInputTextFieldTypeCurrencyUsingDecimal:
             return YES;
             break;
         case KVAmountInputTextFieldTypeQuantity:
@@ -344,6 +346,9 @@
         case KVAmountInputTextFieldTypePercentage:
             _numberFormatter.maximumFractionDigits = 2;
             break;
+        case KVAmountInputTextFieldTypeCurrencyUsingDecimal:
+            _numberFormatter.maximumFractionDigits = 2;
+            break;
         default:
             break;
     }
@@ -375,4 +380,4 @@
     return _numberPad;
 }
 
-@end 
+@end
