@@ -229,8 +229,7 @@
 }
 
 - (BOOL)shouldShowDot {
-    return self.type == KVAmountInputTextFieldTypeQuantity ||
-    self.type == KVAmountInputTextFieldTypePercentage;
+    return self.type != KVAmountInputTextFieldTypeCurrency;
 }
 
 - (void)configDotOrThousandButton {
