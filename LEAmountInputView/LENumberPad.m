@@ -42,9 +42,11 @@
     
     [self addSubview:self.collectionView];
     
-    NSDictionary *views = @{@"collectionView": self.collectionView};
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[collectionView]|" options:0 metrics:0 views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[collectionView]|" options:0 metrics:0 views:views]];
+    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.collectionView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+    [self.collectionView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    [self.collectionView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+    [self.collectionView.bottomAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.bottomAnchor].active = YES;
 }
 
 - (void)layoutSubviews
