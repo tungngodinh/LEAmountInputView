@@ -46,7 +46,11 @@
     [self.collectionView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [self.collectionView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
     [self.collectionView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
-    [self.collectionView.bottomAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.bottomAnchor].active = YES;
+    if (@available(iOS 11.0, *)) {
+        [self.collectionView.bottomAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.bottomAnchor].active = YES;
+    } else {
+        [self.collectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+    }
 }
 
 - (void)layoutSubviews
