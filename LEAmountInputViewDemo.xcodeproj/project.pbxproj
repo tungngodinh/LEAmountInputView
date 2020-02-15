@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4DD4BBE05D75741089A34EB9 /* libPods-LEAmountInputViewDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A22EF017903995394C26768 /* libPods-LEAmountInputViewDemo.a */; };
-		53C701B71E8BD240003AB9D6 /* KVAmountInputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C701B61E8BD240003AB9D6 /* KVAmountInputTextField.m */; };
 		8B2E92901AF6EB9A00F94CB6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E928F1AF6EB9A00F94CB6 /* main.m */; };
 		8B2E92931AF6EB9A00F94CB6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E92921AF6EB9A00F94CB6 /* AppDelegate.m */; };
 		8B2E92961AF6EB9A00F94CB6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E92951AF6EB9A00F94CB6 /* ViewController.m */; };
@@ -24,8 +23,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		53C701B51E8BD240003AB9D6 /* KVAmountInputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVAmountInputTextField.h; sourceTree = "<group>"; };
-		53C701B61E8BD240003AB9D6 /* KVAmountInputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVAmountInputTextField.m; sourceTree = "<group>"; };
 		5A22EF017903995394C26768 /* libPods-LEAmountInputViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LEAmountInputViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B2E928A1AF6EB9A00F94CB6 /* LEAmountInputViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LEAmountInputViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B2E928E1AF6EB9A00F94CB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,8 +125,6 @@
 		8B2E92B31AF6EC1300F94CB6 /* LEAmountInputView */ = {
 			isa = PBXGroup;
 			children = (
-				53C701B51E8BD240003AB9D6 /* KVAmountInputTextField.h */,
-				53C701B61E8BD240003AB9D6 /* KVAmountInputTextField.m */,
 				8BAF04031B288D7000159874 /* LEAmountInputTextField.h */,
 				8BAF04041B288D7000159874 /* LEAmountInputTextField.m */,
 				8B2E92B61AF6EC1300F94CB6 /* LEAmountInputView.h */,
@@ -188,6 +183,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -276,7 +272,6 @@
 				8B2E92901AF6EB9A00F94CB6 /* main.m in Sources */,
 				8B2E92C11AF6EC1300F94CB6 /* LEAmountInputView.m in Sources */,
 				8BAF04051B288D7000159874 /* LEAmountInputTextField.m in Sources */,
-				53C701B71E8BD240003AB9D6 /* KVAmountInputTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
