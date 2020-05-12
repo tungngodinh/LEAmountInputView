@@ -319,6 +319,12 @@
     }
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if ([self.delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
+        [self.delegate textFieldDidEndEditing:self];
+    }
+}
+
 #pragma mark - Setter
 - (void)setAmount:(NSNumber *)amount {
     _amount = amount;
